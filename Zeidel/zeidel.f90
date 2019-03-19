@@ -2,7 +2,7 @@
       implicit none
       real(8), allocatable:: x(:), b(:), A(:,:)
       integer:: i, j, n, iter
-      real(8):: s, k, nor, eps
+      real(8):: s, k, nor, eps, xt(5)=(/1, 2, 3, 4, 5/)
 
       open(1, file='matrix.txt')
       write(*,*) "Sustem matrix"
@@ -39,7 +39,7 @@
       
       nor = 1
       write(*,*) "Eps"
-      eps = 10.0**(-10)
+      eps = 10.0**(-15)
       write(*,"(d10.2)") eps
       write(*,*)
       
@@ -77,7 +77,19 @@
       write(*,*) "Result"      
       write(*,*) x(:)   
       write(*,*)
+      b = x - xt
+      write(*,*) sqrt(skal(b, b, n))
       1 format(10f15.5)
+      
+      contains
+      real(8) function skal(x1, x2, n)
+      integer i, n
+      real(8) x1(n), x2(n)
+      skal = 0
+      do i = 1, n
+        skal = skal + x1(i)*x2(i) 
+      end do
+      end
       
   end program
   
