@@ -7,11 +7,15 @@ implicit none
 	integer:: i
 	
 	n = 50
-	k = 0.7
+	if (mod(n,2) == 1) then
+		write(*,*) 'n+1'
+		n = n + 1
+	end if
+	k = 0.95
 	allocate(h(n), A(n), B(n), C(n), F(n), y(n), x(n))	
 	
 	call grid(n, k, h)
-	f0 = -50
+	f0 = 50
 	y0 = 0
 	yn = 1
 	call matrix(h, f0, y0, yn, n, A, B, C, F)
@@ -21,18 +25,24 @@ implicit none
 	do i = 2, n
 		x(i) = x(i-1) + h(i)
 	end do
+	
+!	x(n/2) = 0.5
+!	do i = n/2, n-1
+!		x(i+1) = h(n/2)* ((1 - k** i)/(1 - k))
+!		x(n-i) = 1 - x(i+1)
+!	end do
 		
 	!export
 	open(1, file='out_data.txt')
-	write(1,2) 'x', 'y'
+	write(1,2) 'i', 'x', 'y'
 	write(1,*) ('-', i=1,30)
-	write(1,1) 0.0, y0
+	write(1,1) 1, 0.0, y0
 	do i = 1, n
-		write(1,1) x(i), y(i)
+		write(1,1) i+1, x(i), y(i)
 	end do
-	write(1,1) 1.0, yn
-1 format(2f15.10)
-2 format(2a12)
+	write(1,1) n+2, 1.0, yn
+1 format(i4,2f15.10)
+2 format(a4,2a12)
 contains
 subroutine grid(n, k, h)
 	integer:: n
@@ -40,9 +50,10 @@ subroutine grid(n, k, h)
 	real(8):: h(n)
 	integer:: i
 
-	h(1) = 0.5* (1 - k)/ (1 - k** n)
-	do i = 1, n-1
-		h(i+1) = h(i)* k** i
+	h(n/2+1) = 0.5* (1 - k)/ (1 - k** (n/2))
+	h(n/2) = h(n/2+1)
+	do i = n/2+1, n-1
+		h(i+1) = h(i)* k
 		h(n-i) = h(i+1)
 	end do
 end subroutine
