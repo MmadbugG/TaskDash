@@ -32,6 +32,7 @@ y(n+1)=1
 do i=n,2,-1
 y(i)=alf(i)*y(i+1)+bet(i)
 end do
+
 x(1)=0
 do i=2,n+1
 x(i)=x(i-1)+h
