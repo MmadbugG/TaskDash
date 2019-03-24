@@ -40,9 +40,9 @@ subroutine grid(n, k, h)
 	real(8):: h(n)
 	integer:: i
 
-	h(n/2) = 0.5* (1 - k)/ (1 - k** n)
-	do i = n/2, n-1
-		h(i+1) = h(n/2)* k** i
+	h(1) = 0.5* (1 - k)/ (1 - k** n)
+	do i = 1, n-1
+		h(i+1) = h(i)* k** i
 		h(n-i) = h(i+1)
 	end do
 end subroutine
