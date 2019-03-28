@@ -28,7 +28,7 @@ implicit none
 	end do
 	call export_txt(Td, Bi, Fo, xh, Fon, n, nt)
 	xsl = 0.5
-	call slice(xh, xsl, n)
+	call slice_saver(xh, xsl, n)
 
 contains
 real(8) function series_T(eps, Bi, Fo, xh)
@@ -103,7 +103,7 @@ subroutine export_txt(Td, Bi, Fo, xh, Fon, n, nt)
 	end do
 	close(1)	
 end subroutine
-subroutine slice(xh, xsl, n)
+subroutine slice_saver(xh, xsl, n)
         real(8):: xh(n), xsl
         integer:: isl, n
         real(8):: dist, buff
