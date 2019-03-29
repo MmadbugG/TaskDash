@@ -3,23 +3,22 @@ implicit none
 	real(8):: Bi, Fon, eps, h, ht
 	real(8), allocatable:: Td(:, :), xh(:), Fo(:)
 	integer:: i, j, n, nt
-	real(8):: xsl !(/0.0, 0.5, 1.0/)
+        real(8):: fsl(3)=(/0.01, 0.1, 0.5/),&
+                  xsl(3)=(/0.0, 0.5, 1.0/)
 	
 	Bi = 1
-	Fon = 1
+	Fon = 2
 	
-	n = 41 !nodes length, the length of interval is equal to n - 1
-	nt = 35
-	
+	n = 61 !nodes length, the length of interval is equal to n - 1
+	nt = 40
 	allocate(xh(n), Fo(nt), Td(n,nt))
 	ht = Fon/ nt
 	h = 1.0/ (n - 1)
-	
-	eps = 1.0e-2
-
+	eps = 1.0e-6
         do i = 1, n
                 xh(i) = (i-1)* h
         end do
+
 	do i = 1, nt
 	        Fo(i) = i* ht
 	        do j = 1, n
@@ -27,8 +26,8 @@ implicit none
 	        end do
 	end do
 	call export_txt(Td, Bi, Fo, xh, Fon, n, nt)
-	xsl = 0.5
-	call slice(xh, xsl, n)
+        call export_fo(xh, Fo, Td, n, nt, fsl)
+        call export_xh(xh, Fo, Td, n, nt, xsl)
 
 contains
 real(8) function series_T(eps, Bi, Fo, xh)
@@ -86,7 +85,6 @@ subroutine export_txt(Td, Bi, Fo, xh, Fon, n, nt)
 	real(8):: T(nt, n), time(nt)	
 	integer:: i
 	character(len=15):: str
-	
 	open(1, file='file_out.txt')
 	write(1,'(a40/)') 'Created from separation_var program'
 	write(1,'(a20/)') 'Parameter: '
@@ -103,11 +101,11 @@ subroutine export_txt(Td, Bi, Fo, xh, Fon, n, nt)
 	end do
 	close(1)	
 end subroutine
-subroutine slice(xh, xsl, n)
-        real(8):: xh(n), xsl
+integer function slice(xh, xsl, n)
+        real(8):: xh(n)
         integer:: isl, n
-        real(8):: dist, buff
-        integer:: i, j
+        real(8):: dist, buff, xsl
+        integer:: i
         buff = 1.0
         do i = 1, n
                 dist = abs(xh(i) - xsl)
@@ -117,7 +115,31 @@ subroutine slice(xh, xsl, n)
                 buff = dist
         end do
         isl = i - 1
-        write(*,*) xh(isl)        
+        slice = isl
+end function
+subroutine export_fo(xh, Fo, Td, n, nt, fsl)
+        real(8):: xh(n), Fo(nt), Td(n, nt), fsl(3)
+        integer:: n, nt
+        integer:: isl(3), i
+        open(1, file='exp_fo.txt')
+        write(1, *) xh(:)
+        do i = 1, 3
+                isl(i) = slice(Fo, fsl(i), nt)
+                write(1, *) Td(:, isl(i))
+        end do
+        close(1)
+end subroutine
+subroutine export_xh(xh, Fo, Td, n, nt, xsl)
+        real(8):: xh(n), Fo(nt), Td(n, nt), xsl(3)
+        integer:: n, nt
+        integer:: isl(3), i
+        open(1, file='exp_xh.txt')
+        write(1, *) Fo(:)
+        do i = 1, 3
+                isl(i) = slice(xh, xsl(i), n)
+                write(1, *) Td(isl(i), :)
+        end do
+        close(1)
 end subroutine
 end program
 
