@@ -32,6 +32,7 @@ implicit none
         end do
         
         Td(:, 1) = 1
+        Fo(1) = 0
 	do i = 2, nt
 	        Fo(i) = (i - 1)* ht
 	        do j = 2, n-1
@@ -68,11 +69,6 @@ subroutine units(Td, Fo, xh, n, nt, a, delt, Ta, Te)
                 xh(i) = xh(i)* delt
         end do
 end subroutine
-
-real(8) function f(x, Bi)
-	real(8):: x, Bi
-	f = 1.0/tan(x) - x/ Bi
-end function
 subroutine export_txt(Td, Bi, Fo, xh, Fon, n, nt)
 	real(8):: Td(n, nt), Bi, Fo(nt), Fon, xh(n)
 	integer:: n, nt
