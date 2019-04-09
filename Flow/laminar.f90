@@ -11,7 +11,6 @@ implicit none
 		write(*,*) 'n+1'
 		n = n + 1
 	end if
-	write(*,*) n
 	k = 0.9
 	allocate(h(n), A(n), B(n), C(n), F(n), y(n), x(n))	
 	
@@ -23,7 +22,7 @@ implicit none
 		x(n-i) = 1 - x(i)
 	end do
 	
-	f0 = 50
+	f0 = 100000/ (13.28* 1.29)
 	y0 = 0
 	yn = 1
 	call matrix(h, f0, y0, yn, n, A, B, C, F)
