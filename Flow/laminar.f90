@@ -31,6 +31,7 @@ implicit none
 		
 	!export
 	open(1, file='out_data.txt')
+	write(1,*) n + 1
 	write(1,2) 'i', 'x', 'y'
 	write(1,*) ('-', i=1,50)
 	write(1,1) 1, 0.0, y0

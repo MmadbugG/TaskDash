@@ -42,4 +42,24 @@ write(1,*) x(i), y(i)
 end do
 close(1)
 close(2)
+contains
+!ne pashet prosto sohranil
+subroutine deriv(v, h, dv, n)
+        integer:: n, i
+        real(8):: v(n), h(n-1), dv(n), delt
+        
+        delt = h(2)/ h(1)
+        dv(1) = 1/ (h(1) + h(2))* &
+        (-(2 + delt)* v(1) + (1 + delt)** 2 / delt * v(2) - v(3)/ delt)
+        
+        do i = 2, n-1
+                delt = h(i)/ h(i-1)
+                dv(i) = 1/ (h(i+1) + h(i))* &
+                (-delt* v(i-1) + (delt**2 - 1)/ delt* v(i) + 1/ delt* v(i+1))
+        end do  
+               
+        delt = h(n-1)/ h(n-2)
+        dv(n) = 1/ (h(n) + h(n-1))* &
+        (delt* v(n-2) - (1 + delt)** 2/ delt* v(n-1) + (2 + delt)/ delt* v(n))
+end subroutine
 end program main
