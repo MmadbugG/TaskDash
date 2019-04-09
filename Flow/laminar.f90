@@ -11,24 +11,25 @@ implicit none
 		write(*,*) 'n+1'
 		n = n + 1
 	end if
+	write(*,*) n
 	k = 0.9
 	allocate(h(n), A(n), B(n), C(n), F(n), y(n), x(n))	
 	
 	call grid(n, k, h)
+
+	x(n/2) = 0.5
+	do i = n/2+1, n-1
+		x(i) = h(n/2)* ((1 - k** (i-n/2))/ (1 - k)) + 0.5
+		x(n-i) = 1 - x(i)
+	end do
+	
 	f0 = 50
 	y0 = 0
 	yn = 1
 	call matrix(h, f0, y0, yn, n, A, B, C, F)
 	!subroutine find n-1 parameter and change n to n-1
 	call sweep(A, B, C, F, n, y)
-
-	n = n + 1
-	x(n/2) = 0.5
-	do i = n/2+1, n-1
-		x(i) = h(n/2)* ((1 - k** (i-n/2))/ (1 - k)) + 0.5
-		x(n-i) = 1 - x(i)
-	end do
-		
+        n = n + 1
 	!export
 	open(1, file='out_data.txt')
 	write(1,*) n + 1
