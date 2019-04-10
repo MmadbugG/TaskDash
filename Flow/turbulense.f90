@@ -24,7 +24,7 @@ implicit none
 	v(1) = v0
 	v(n) = vn
 	
-	do i = 1, 1000
+	do i = 1, 1
         	call matrix(h, p, mu, v0, vn, n-2, A, B, C, F)
         	call sweep(A, B, C, F, n-2, v)
                 call deriv(v, h, dv, n)
@@ -33,6 +33,11 @@ implicit none
         open(1, file="turb_out_plus.txt")
         do i = 1, n
         write(1,*) log(xplus(i)), vplus(i)
+        end do
+        close(1)
+        open(1, file="turb_out.txt")
+        do i = 1, n
+        write(1,*) x(i), v(i)
         end do
         close(1)
 
