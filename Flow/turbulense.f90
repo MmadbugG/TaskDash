@@ -8,7 +8,7 @@ implicit none
         rho = 1.293
         nu = 13.28
 	q = 1.1 ! q > 1
-	h1 = 0.001
+	h1 = 0.01
 
 	n = (int(log((h1* 2 - 1 + q)/ (2.0* h1))/ log(q)) + 1)* 2 + 1
 	
@@ -24,7 +24,7 @@ implicit none
 	v(1) = v0
 	v(n) = vn
 	
-	do i = 1, 1
+	do i = 1, 100000
         	call matrix(h, p, mu, v0, vn, n-2, A, B, C, F)
         	call sweep(A, B, C, F, n-2, v)
                 call deriv(v, h, dv, n)
@@ -32,7 +32,7 @@ implicit none
         end do
         open(1, file="turb_out_plus.txt")
         do i = 1, n
-        write(1,*) log(xplus(i)), vplus(i)
+        write(1,*) xplus(i), vplus(i)
         end do
         close(1)
         open(1, file="turb_out.txt")
