@@ -7,14 +7,20 @@ implicit none
         real(8):: fsl(3)=(/0.05, 0.1, 0.5/),&
                   xsl(3)=(/0.0, 0.5, 1.0/)
 	
-	alp = 11000
+	alp = 110000
 	c = 670
 	rho = 2500.0
 	lam = 0.74
 	Fon = 0.5
 	Ta = 20
 	Te = 100
-	delt = 0.005
+	delt = 0.5
+
+alp = 110000.0
+	eps = 10e-2
+	lam = 0.74
+	c = 670.0
+rho = 2500.0
 	
 	Bi = alp* delt/ lam
 	a = lam/ (c* rho)
@@ -43,11 +49,11 @@ implicit none
 	        Td(n, i) = Td(n-1, i)/ (1.0 + h* Bi)
 	end do
 	
-	call units(Td, Fo, xh, n, nt, a, delt, Ta, Te)
-	do i = 1, 3
-	        fsl(i) = fsl(i)* delt**2 / a
-	        xsl(i) = xsl(i)* delt
-	end do 
+	!call units(Td, Fo, xh, n, nt, a, delt, Ta, Te)
+	!do i = 1, 3
+	!        fsl(i) = fsl(i)* delt**2 / a
+	!        xsl(i) = xsl(i)* delt
+	!end do 
 	call export_txt(Td, Bi, Fo, xh, Fon, n, nt)
         call export_fo(xh, Fo, Td, n, nt, fsl)
         call export_xh(xh, Fo, Td, n, nt, xsl)

@@ -16,11 +16,18 @@ implicit none
 	Te = 100
 	delt = 0.005
 	
+delt = 0.5
+alp = 110000.0
+	eps = 10e-2
+	lam = 0.74
+	c = 670.0
+rho = 2500.0
+
 	Bi = alp* delt/ lam
 	a = lam/ (c* rho)
 	
-	n = 100 !nodes length, the length of interval is equal to n - 1
-	nt = 100
+	n = 100
+	nt = 1000
 	allocate(xh(n), Fo(nt), Td(n,nt))
 	ht = Fon/ (nt - 1)
 	h = 1.0/ (n - 1)
@@ -37,11 +44,11 @@ implicit none
 	end do
 	
 	Td(:, 1) = 1
-	call units(Td, Fo, xh, n, nt, a, delt, Ta, Te)
-	do i = 1, 3
-	        fsl(i) = fsl(i)* delt**2 / a
-	        xsl(i) = xsl(i)* delt
-	end do 
+	!call units(Td, Fo, xh, n, nt, a, delt, Ta, Te)
+	!do i = 1, 3
+	!        fsl(i) = fsl(i)* delt**2 / a
+	!        xsl(i) = xsl(i)* delt
+	!end do 
 	call export_txt(Td, Bi, Fo, xh, Fon, n, nt)
         call export_fo(xh, Fo, Td, n, nt, fsl)
         call export_xh(xh, Fo, Td, n, nt, xsl)
