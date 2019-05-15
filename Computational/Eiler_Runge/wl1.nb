@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     11855,        326]
-NotebookOptionsPosition[     11034,        304]
-NotebookOutlinePosition[     11368,        319]
-CellTagsIndexPosition[     11325,        316]
+NotebookDataLength[     14098,        381]
+NotebookOptionsPosition[     13179,        358]
+NotebookOutlinePosition[     13514,        373]
+CellTagsIndexPosition[     13471,        370]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -23,7 +23,7 @@ Cell[BoxData[
   RowBox[{"SetDirectory", "[", 
    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.76686183260778*^9, 3.766861845064349*^9}},
- CellLabel->"In[4]:=",ExpressionUUID->"3f2e4f8b-f3fb-4844-9d87-0ebbf214dacc"],
+ CellLabel->"In[1]:=",ExpressionUUID->"3f2e4f8b-f3fb-4844-9d87-0ebbf214dacc"],
 
 Cell[BoxData[
  RowBox[{
@@ -37,7 +37,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", "x"}], "+", "1"}], "]"}]}], "+", "1"}]}]], "Input",
  CellChangeTimes->{{3.76685638451991*^9, 3.7668564177824087`*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"02659479-25fd-4d30-b867-911f2f0593e1"],
+ CellLabel->"In[2]:=",ExpressionUUID->"02659479-25fd-4d30-b867-911f2f0593e1"],
 
 Cell[CellGroupData[{
 
@@ -157,7 +157,8 @@ Cell[BoxData[
              StyleBox[
               DynamicBox[ToBoxes[
                 FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
-                StandardForm]],
+                StandardForm],
+               ImageSizeCache->{61., {0., 8.}}],
               StripOnInput->False,
               DynamicUpdating->True], "OSLControlActive",
              StripOnInput->False]}, Dynamic[
@@ -188,7 +189,8 @@ Cell[BoxData[
              StyleBox[
               DynamicBox[ToBoxes[
                 FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
-                StandardForm]],
+                StandardForm],
+               ImageSizeCache->{46., {0., 8.}}],
               StripOnInput->False,
               DynamicUpdating->True], "OSLControlActive",
              StripOnInput->False]}, Dynamic[
@@ -219,7 +221,8 @@ Cell[BoxData[
              StyleBox[
               DynamicBox[ToBoxes[
                 FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
-                StandardForm]],
+                StandardForm],
+               ImageSizeCache->{83., {0., 8.}}],
               StripOnInput->False,
               DynamicUpdating->True], "OSLControlActive",
              StripOnInput->False]}, Dynamic[
@@ -300,10 +303,61 @@ Cell[BoxData["0.003884602337269172`"], "Output",
  CellChangeTimes->{{3.766861955298802*^9, 3.76686198325832*^9}, {
   3.766862023751358*^9, 3.766862054698739*^9}},
  CellLabel->"Out[11]=",ExpressionUUID->"c8c9f329-0425-423c-98a1-925ed498df38"]
-}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Do", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"file", "=", 
+     RowBox[{"File", "[", "\"\<vhod.txt\>\"", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Write", "[", 
+     RowBox[{"file", ",", "0"}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Write", "[", 
+     RowBox[{"file", ",", "4"}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Write", "[", 
+     RowBox[{"file", ",", "1"}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Write", "[", 
+     RowBox[{"file", ",", 
+      SuperscriptBox["10.", 
+       RowBox[{"-", "i"}]]}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Close", "[", "file", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Run", "[", "\"\<echo 1 | ./a.out\>\"", "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"dat", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"Import", "[", 
+       RowBox[{"\"\<out2.txt\>\"", ",", "\"\<Table\>\""}], "]"}], "[", 
+      RowBox[{"[", 
+       RowBox[{";;", ",", 
+        RowBox[{"2", ";;"}]}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"yh", "=", 
+     RowBox[{"dat", "[", 
+      RowBox[{"[", 
+       RowBox[{";;", ",", "2"}], "]"}], "]"}]}], ";", 
+    RowBox[{"xh", "=", 
+     RowBox[{"dat", "[", 
+      RowBox[{"[", 
+       RowBox[{";;", ",", "1"}], "]"}], "]"}]}], ";", 
+    RowBox[{"yan", "=", 
+     RowBox[{"y", "[", "xh", "]"}]}], ";", 
+    RowBox[{"err", "=", 
+     RowBox[{"yan", "-", "yh"}]}], ";", " ", 
+    RowBox[{"Print", "[", 
+     RowBox[{"Max", "[", 
+      RowBox[{"Abs", "[", "err", "]"}], "]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "6"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.766862709260434*^9, 3.7668627393047523`*^9}, {
+   3.7668627934692*^9, 3.766862820160671*^9}, {3.7668628529324427`*^9, 
+   3.766862955261147*^9}, 3.766863004316051*^9, {3.766863179082767*^9, 
+   3.7668631802163887`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"2f8d052f-8749-4ac6-9bd7-f9f26cdc91fb"]
 },
 WindowSize->{808, 911},
-WindowMargins->{{Automatic, 89}, {99, Automatic}},
+WindowMargins->{{78, Automatic}, {168, Automatic}},
 FrontEndVersion->"11.3 for Linux x86 (64-bit) (March 6, 2018)",
 StyleDefinitions->"Default.nb"
 ]
@@ -322,12 +376,13 @@ Cell[558, 20, 266, 5, 31, "Input",ExpressionUUID->"3f2e4f8b-f3fb-4844-9d87-0ebbf
 Cell[827, 27, 419, 12, 31, "Input",ExpressionUUID->"02659479-25fd-4d30-b867-911f2f0593e1"],
 Cell[CellGroupData[{
 Cell[1271, 43, 393, 9, 31, "Input",ExpressionUUID->"f3aefe01-aab2-4e1b-a44d-26637a088c7a"],
-Cell[1667, 54, 8488, 221, 145, "Output",ExpressionUUID->"a52826f3-2adc-46b8-b6a2-61bc8f6956c4"]
+Cell[1667, 54, 8632, 224, 145, "Output",ExpressionUUID->"a52826f3-2adc-46b8-b6a2-61bc8f6956c4"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10192, 280, 582, 16, 31, "Input",ExpressionUUID->"e7afd864-8024-48ef-9ede-4c4bf3ae2dce"],
-Cell[10777, 298, 241, 3, 68, "Output",ExpressionUUID->"c8c9f329-0425-423c-98a1-925ed498df38"]
-}, Open  ]]
+Cell[10336, 283, 582, 16, 31, "Input",ExpressionUUID->"e7afd864-8024-48ef-9ede-4c4bf3ae2dce"],
+Cell[10921, 301, 241, 3, 35, "Output",ExpressionUUID->"c8c9f329-0425-423c-98a1-925ed498df38"]
+}, Open  ]],
+Cell[11177, 307, 1998, 49, 354, "Input",ExpressionUUID->"2f8d052f-8749-4ac6-9bd7-f9f26cdc91fb"]
 }
 ]
 *)

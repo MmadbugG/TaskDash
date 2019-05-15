@@ -1,8 +1,8 @@
 program pract2
 implicit none
-real, allocatable:: x(:), y(:), y_old(:)
+real(16), allocatable:: x(:), y(:), y_old(:)
 integer:: N, i, m, iter, p
-real:: k1, k2, k3, eps, a, b, y0, h
+real(16):: k1, k2, k3, eps, a, b, y0, h
 
 !Открывам файл с исходными данными и создаем файл для выходных данных
 !Open the file with the original values and create a file for the output values
@@ -75,8 +75,8 @@ do i = 1,n
         write(2,*) i, x(i), y(i)
 end do
 contains
-real function infty_norm(x, n)
-        real x(n), res
+real(16) function infty_norm(x, n)
+        real(16) x(n), res
         integer n
         res = 0
         do i = 1, n
@@ -86,8 +86,8 @@ real function infty_norm(x, n)
         end do
         infty_norm = res
 end function
-real function f(x, y)
-real, intent(in):: x, y
+real(16) function f(x, y)
+real(16), intent(in):: x, y
    f = (4*x + 2*y)/(2*x + 1)
 end function
 end program
