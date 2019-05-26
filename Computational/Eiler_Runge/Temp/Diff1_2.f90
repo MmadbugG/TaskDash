@@ -3,12 +3,12 @@ program Diff
     implicit none
     
     integer :: n, i, mMaxRG, mMinRG, mMaxEu, mMinEu, m, k
-    real(16) :: xa, xb, ya, yiEu, yiRG, y1, y2, h, epsEu, epsRG, eps
-    real(16), allocatable :: X(:), Yan(:)
+    real(8) :: xa, xb, ya, yiEu, yiRG, y1, y2, h, epsEu, epsRG, eps
+    real(8), allocatable :: X(:), Yan(:)
     
-    xa = 1D0
-    xb = 3D0
-    ya = exp(1D0)
+    xa = 0.0 
+    xb = 4.0
+    ya = 1.0
     
     !eps = 1D-5
     
@@ -89,30 +89,30 @@ program Diff
     
     contains
     
-    real(16) function analyticSolution(x)
-        real(16) :: x
+    real(8) function analyticSolution(x)
+        real(8) :: x
     
-        analyticSolution = exp(x) * (log(abs(x)) + 1)
+        analyticSolution = (2*x + 1)* log(2*x +1) + 1
     end function analyticSolution
     
-    real(16) function dev(x, y)
-        real(16) :: x, y
+    real(8) function dev(x, y)
+        real(8) :: x, y
     
-        dev = exp(x) / x + y
+        dev = (4*x + 2*y)/(2*x + 1)
     end function dev
     
     subroutine Euler(yi, xi, yRes, h, m, dev)
     
-        real(16) :: yi, xi, yRes, h
+        real(8) :: yi, xi, yRes, h
         integer :: m
         
         interface
-            real(16) function dev(x, y)
-                real(16) :: x, y
+            real(8) function dev(x, y)
+                real(8) :: x, y
             end function
         end interface
         
-        real(16) :: hi, x1, y1, y2
+        real(8) :: hi, x1, y1, y2
         integer :: i
         
         hi = h / m
@@ -130,16 +130,16 @@ program Diff
     
     subroutine RungeKutta3(yi, xi, yRes, h, m, dev)
     
-        real(16) :: yi, xi, yRes, h
+        real(8) :: yi, xi, yRes, h
         integer :: m
         
         interface
-            real(16) function dev(x, y)
-                real(16) :: x, y
+            real(8) function dev(x, y)
+                real(8) :: x, y
             end function
         end interface
         
-        real(16) :: k1, k2, k3, hi, x1, y1, y2
+        real(8) :: k1, k2, k3, hi, x1, y1, y2
         integer :: i
         
         hi = h / m
