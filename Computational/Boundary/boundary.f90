@@ -10,7 +10,7 @@ implicit none
     yb = exact_solution(xb)
     open(1, file='out.txt')
     n = 3
-    do while(n < 10**6) 
+    do while(n < 5*10**4) 
         h = (xb - xa)/ (n - 1)
         allocate(xh(n), yh(n), A(n-2), B(n-2), C(n-2), F(n-2), y_exact(n))
         do i = 1, n
@@ -20,12 +20,13 @@ implicit none
         
         do i = 1, n-2
             f(i) = 3* exp(xh(i+1))
-            a(i) = 1/ h **2 - (1 + sin(xh(i+1)) **2)/ h
-            b(i) = -2/ h **2 + (1 + sin(xh(i+1)) **2)/ h + cos(xh(i+1))**2
-            c(i) = 1/ h **2
+            a(i) = 1/ h **2 - (1 + sin(xh(i+1)) **2)/ (2*h)
+            b(i) = -2/ h **2 + cos(xh(i+1))**2
+            c(i) = 1/ h **2 + (1 + sin(xh(i+1)) **2)/ (2*h)
         end do
-        f(1) = f(1) + ya* ((1 + sin(xh(2)) **2)/ h - 1/ h **2)
-        f(n-2) = f(n-2) - yb/ h**2
+        f(1) = f(1) + ya* ((1 + sin(xh(2)) **2)/ (2*h) - 1/ h **2)
+        f(n-2) = f(n-2) - yb* (1/ h**2 + (1 + sin(xh(i+1)) **2)/ (2*h))
+ 
         a(1) = 0
         c(n-2) = 0
 
