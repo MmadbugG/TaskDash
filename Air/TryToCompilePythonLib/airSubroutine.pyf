@@ -1,0 +1,24 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module airSubroutine ! in 
+    interface  ! in :airSubroutine
+        subroutine calc_curve(r1,r2,alp,bet,gam,o1o2,curve,n) ! in :airSubroutine:airSubroutine.f90
+            real intent(in) :: r1
+            real intent(in) :: r2
+            real intent(in) :: alp
+            real intent(in) :: bet
+            real intent(in) :: gam
+            real intent(in) :: o1o2
+            real dimension(n,2),intent(out),depend(n) :: curve
+            integer :: n
+            type circle ! in :airSubroutine:airSubroutine.f90:calc_curve
+                real :: r
+                real dimension(2) :: o
+            end type circle
+        end subroutine calc_curve
+    end interface 
+end python module airSubroutine
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

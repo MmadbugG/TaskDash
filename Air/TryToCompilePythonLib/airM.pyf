@@ -1,0 +1,52 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module airM ! in 
+    interface  ! in :airM
+        type circle ! in :airM:airM.f90
+            real :: r
+            real dimension(2) :: o
+        end type circle
+        subroutine airm(r1,r2,alp,bet,gam,o1o2,curve,n) ! in :airM:airM.f90
+            real intent(in) :: r1
+            real intent(in) :: r2
+            real intent(in) :: alp
+            real intent(in) :: bet
+            real intent(in) :: gam
+            real intent(in) :: o1o2
+            real dimension(n,2),intent(out),depend(n) :: curve
+            integer intent(in) :: n
+        end subroutine airm
+        function dot(v,m,n) result (v2) ! in :airM:airM.f90
+            real dimension(n) :: v
+            real dimension(n,n),depend(n,n) :: m
+            integer, optional,check(len(v)>=n),depend(v) :: n=len(v)
+            real dimension(n) :: v2
+        end function dot
+        function fr(circ,fi) result (v) ! in :airM:airM.f90
+            type(circle) :: circ
+            real :: fi
+            real dimension(2) :: v
+        end function fr
+        function vectorangle(v1,v2,n) ! in :airM:airM.f90
+            real dimension(n) :: v1
+            real dimension(n),depend(n) :: v2
+            integer, optional,check(len(v1)>=n),depend(v1) :: n=len(v1)
+            real :: vectorangle
+        end function vectorangle
+        function scal(v1,v2,n) ! in :airM:airM.f90
+            real dimension(n) :: v1
+            real dimension(n),depend(n) :: v2
+            integer, optional,check(len(v1)>=n),depend(v1) :: n=len(v1)
+            real :: scal
+        end function scal
+        function norm(v,n) ! in :airM:airM.f90
+            real dimension(n) :: v
+            integer, optional,check(len(v)>=n),depend(v) :: n=len(v)
+            real :: norm
+        end function norm
+    end interface 
+end python module airM
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
